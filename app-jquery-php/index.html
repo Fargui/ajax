@@ -10,18 +10,19 @@
 </head>
 <body>
     
+    <div class="container">
     <h1>Les utilisateurs</h1>
 
     <hr> 
 
     <form>
         <label for="lastname">Nom utilisateur</label>
-        <input type="text" name="lastname" id="lastname">
+        <input type="text" name="lastname" id="lastname"> <br> <br>
         
         <label for="firstname">Prenom utilisateur</label>
-        <input type="text" name="firstname" id="firstname">
+        <input type="text" name="firstname" id="firstname"> <br>
         <br>
-        <button type="button" id="add-user">Ajouter</button>
+        <button type="button" class="btn btn-info" id="add-user">Ajouter</button>
     </form>
 
     <hr>
@@ -38,6 +39,8 @@
         <tbody></tbody>
     </table>
 
+</div>
+
     <!-- Template pour l'affichage d'un post -->
     <template id="row-user">
         <tr>
@@ -53,6 +56,15 @@
     
 
 
+
+    <!-- ----------------------------------------------___--_--_-----__--_--------_----_--_-_-__-_--_--_-------------__-__-__----_--__--__-_--_--_--_--__-- -->
+
+
+
+
+
+
+    
     <!-- Script Custom -->
     <script>
 
@@ -81,6 +93,12 @@
         });
     });
 
+
+
+
+
+
+
     function getUsers(){
         $.ajax({
                 url: "user.php",
@@ -102,7 +120,9 @@
 
                 
 
-                $(response).each((index, user) => {
+                $(response).each((index, user) => {  /* QUESTION, LE REPONSE MIS EN PARAM ET HAUT SERT À NE PAS REECRIRE LA BOUCLE QUAND ON APPELLE LA FCT ? */
+
+                    console.log(user);
 
                     $item = $tpl.html()
                         .replace(/{user_id}/, index)

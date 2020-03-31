@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <base href="http://localhost/~guillaumedumez/Ajax/single-page/">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <title>Single Page</title>
+</head>
+<body>
+
+    <!-- 
+    Afficher la page A et la page B dans <div id="content"> via des requetes AJAX
+    Lorques la page B est chargée, Récupérer les données de B.php pour les afficher dans le tableau
+    -->
+    
+    <nav>
+        <a href="javascript:void(0);" data-test="a.html" >Page A</a> <br>
+        <a href="javascript:void(0);" data-test="b.html" >Page B</a>
+    </nav>
+
+    <div id="content"></div>
+
+    <!-- Vendor Jquery -->
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+
+
+    <!-- Custom Script -->
+
+    <script>
+
+$container = $('#content');
+
+/* PAGE A */
+
+$(document).ready(function(){
+
+
+    $links = $('a').data(['test']);  
+
+  $links.each((index, link) => {
+
+    $(link).on('click', function(){
+        console.log(link);
+        
+        $url = $(link).data('test');
+        
+
+        
+
+        $.get($url).done((response)=>{
+
+           
+            
+            $container.html(response);
+            console.log($url);
+            
+
+
+            switch ($url)
+                    {
+                        case 'b.html':
+                            $target = $('table').find('tbody');
+                            $template = $('template');
+                            
+                            $.getJSON('b.php').done((response) => {
+                                $(response).each((index, item) => {
+
+                                   $item = $template.html()
+                                        .replace(/{id}/, index)
+                                        .replace(/{brand}/, item)
+                                    ;
+
+                                    $target.append($item);
+
+                                });
+                                
+                                  console.log(index);
+                            });
+                            break
+
+
+
+
+        }}      
+    )})    
+  });
+})
+   
+  
+
+  
+  
+
+
+  
+
+            
+
+
+
+
+    </script>
+
+</body>
